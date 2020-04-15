@@ -3,6 +3,7 @@
   height: 50px;
   text-align: center;
 
+
   .btn-circle-border-double {
     display: inline-block;
     text-decoration: none;
@@ -26,5 +27,11 @@
   .btn-circle-border-double:hover {
     -webkit-transform: rotateY(360deg);
     transform: rotateY(360deg);
+  }
+
+  .top-propa {
+    color: rgb(152, 163, 0);
+    line-height: 50px;
+    padding-top: 20px;
   }
 }
