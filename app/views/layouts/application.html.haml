@@ -12,4 +12,13 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    .navbar.navbar-expand-lg.navbar-light.bg-alpha
+      = link_to "サイト名", "/", class: "navbar-brand"
+      .collapse.navbar-collapse#navbarSupportedContent
+      %ul.navbar-nav.mr-auto
+        %li.nav-item.active
+        = link_to "新規登録", "#", class: "nav-link"
+        %li.nav-item.active
+        = link_to "ログイン", "#", class: "nav-link"
     = yield
+    .app-background-image
