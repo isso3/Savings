@@ -5,9 +5,13 @@
   background-image: image-url("save-3402476_1920.jpg");
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: center 50%;
 }
 
 .bg-alpha {
-  background-color: rgba(224, 224, 224, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-light {
+  padding-bottom: 60px;
 }
