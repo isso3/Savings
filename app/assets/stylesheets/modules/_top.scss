@@ -1,8 +1,7 @@
 #move {
   position: relative;
-  height: 50px;
+  height: 0;
   text-align: center;
-  padding-top: 60px;
 
   .btn-circle-border-double {
     display: inline-block;
@@ -13,11 +12,13 @@
     line-height: 320px;
     border-radius: 50%;
     border: double 4px #668ad8;
-    text-align: center;
     overflow: hidden;
     transition: .2s;
     font-size: 40px;
     background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .btn-circle-border-double:hover {
@@ -26,8 +27,10 @@
   }
 
   .top-propa {
+    height: 150px;
     color: rgb(152, 163, 0);
-    line-height: 50px;
+    line-height: 150px;
     padding-top: 20px;
+    text-align: left;
   }
 }
