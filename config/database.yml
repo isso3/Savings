@@ -51,4 +51,6 @@ production:
   <<: *default
   database: Savings_production
   username: Savings
-  password: <%= ENV['SAVINGS_DATABASE_PASSWORD'] %>
+  username: root
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  socket: /var/lib/mysql/mysql.sock
