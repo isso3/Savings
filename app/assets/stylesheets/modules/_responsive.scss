@@ -1,8 +1,19 @@
+@media (max-width: 900px) {
+  #move .btn-circle-border-double {
+    width: 250px;
+    height: 250px;
+    line-height: 250px;
+    font-size: 30px;
+    left: 80px;
+  }
+}
+
 @media (max-width: 620px) {
   #move .btn-circle-border-double {
     width: 160px;
     height: 160px;
     line-height: 160px;
     font-size: 20px;
+    left: 40px;
   }
 }

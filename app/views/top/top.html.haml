@@ -1,4 +1,8 @@
-.container#move
-  = link_to "始める！", "#", class: "btn-circle-border-double"
+#move
+  - if user_signed_in?
+    = link_to "始める！", "#", class: "btn-circle-border-double"
+  - else
+    = link_to "始める！", new_user_session_path, class: "btn-circle-border-double"
   %h1.top-propa
     さあ、貯金しよう！
+.app-background-image
