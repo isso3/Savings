@@ -1,0 +1,14 @@
+.registrations--margin {
+  width: 500px;
+  margin: auto;
+
+  & h2 {
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  & .field, .actions, .login-bottom{
+    margin-left: 160px;
+    padding-bottom: 20px;
+  }
+}
