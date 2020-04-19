@@ -1,0 +1,23 @@
+.index-box {
+  height: 600px;
+  width: 100%;
+
+  .title {
+    width: 500px;
+    margin: auto;
+    text-align: center;
+    padding: 20px 0;
+  }
+
+  &__graph {
+    margin: auto;
+    height: 500px;
+    width: 1000px;
+    background-color: #333333;
+  }
+
+  &__form-trans {
+    padding: 20px 0;
+    text-align: center;
+  }
+}

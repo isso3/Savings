@@ -6,6 +6,20 @@
     font-size: 30px;
     left: 80px;
   }
+
+  .index-box {
+    height: 400px;
+
+    .title {
+      width: 300px;
+      font-size: 20px;
+    }
+  
+    .index-box__graph {
+      height: 400px;
+      width: 620px;
+    }
+  }
 }
 
 @media (max-width: 620px) {
@@ -15,5 +29,19 @@
     line-height: 160px;
     font-size: 20px;
     left: 40px;
+  }
+
+  .index-box {
+    height: 200px;
+
+    .title {
+      width: 200px;
+      font-size: 14px;
+    }
+  
+    .index-box__graph {
+      height: 300px;
+      width: 300px;
+    }
   }
 }
