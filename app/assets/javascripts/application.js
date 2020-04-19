@@ -17,3 +17,5 @@
 //= require bootstrap
 //= require jquery3
 //= require popper
+//= require chartkick
+//= require Chart.bundle
