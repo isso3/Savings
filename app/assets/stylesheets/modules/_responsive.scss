@@ -5,6 +5,23 @@
     line-height: 250px;
     font-size: 30px;
     left: 80px;
+    position: relative;
+  }
+
+  #move .top-propa {
+    position: absolute;
+    top: 300px;
+    left: 80px;
+    font-size: 28px;
+  }
+
+  .app-background-image {
+    background-size: contain;
+    height: 600px;
+  }
+
+  .top-propa {
+    font-size: 25px;
   }
 
   .index-box {
@@ -29,6 +46,19 @@
     line-height: 160px;
     font-size: 20px;
     left: 40px;
+    position: relative;
+  }
+
+  #move .top-propa {
+    position: absolute;
+    top: 180px;
+    left: 40px;
+    font-size: 20px;
+  }
+
+  .app-background-image {
+    background-size: contain;
+    height: 400px;
   }
 
   .index-box {
