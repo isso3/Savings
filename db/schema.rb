@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200420081938) do
+ActiveRecord::Schema.define(version: 20200421112804) do
 
   create_table "savings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.bigint   "total_savings",     null: false
-    t.bigint   "month_income",      null: false
+    t.bigint   "total_savings"
+    t.bigint   "month_income"
     t.bigint   "daily_consumption"
     t.bigint   "daily_income"
     t.datetime "created_at",        null: false

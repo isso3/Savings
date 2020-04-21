@@ -1,0 +1,6 @@
+= form_for(@saving, url: {controller: 'result', action: 'create_beginner'}) do |f|
+  = f.label :今までの貯金額
+  %br/
+  = f.number_field :total_savings
+  %br/
+  = f.submit "送信"
