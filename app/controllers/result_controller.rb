@@ -9,14 +9,16 @@ class ResultController < ApplicationController
 
   def create
     @saving = Saving.new(saving_params)
+    @saving.user_id = current_user.id
     @saving.save
-    redirect_to "/result/:id"
+    redirect_to result_path
   end
 
   def create_beginner
     @saving = Saving.new(saving_beginner_params)
+    @saving.user_id = current_user.id
     @saving.save
-    redirect_to result_path
+    redirect_to result_path(current_user.id)
   end
 
   def beginner
