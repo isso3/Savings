@@ -1,6 +1,6 @@
 class ResultController < ApplicationController
-  def index
-    @saving = Saving.all
+  def show
+    
   end
 
   def new
@@ -10,13 +10,13 @@ class ResultController < ApplicationController
   def create
     @saving = Saving.new(saving_params)
     @saving.save
-    redirect_to result_index_path
+    redirect_to "/result/:id"
   end
 
   def create_beginner
     @saving = Saving.new(saving_beginner_params)
     @saving.save
-    redirect_to result_index_path
+    redirect_to result_path
   end
 
   def beginner
