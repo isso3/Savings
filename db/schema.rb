@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20200421112804) do
     t.bigint   "daily_income"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_savings_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -35,4 +37,5 @@ ActiveRecord::Schema.define(version: 20200421112804) do
     t.index ["username"], name: "index_users_on_username", unique: true, using: :btree
   end
 
+  add_foreign_key "savings", "users"
 end
