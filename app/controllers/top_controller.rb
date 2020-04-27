@@ -5,8 +5,10 @@ class TopController < ApplicationController
       # if user != nil
       redirect_to "/result/#{current_user.id}"
       # else
-      #   redirect_to "/#{current_user.id}/beginner"
+      
       # end
+    else
+      redirect_to "/#{current_user.id}/beginner"
     end
   end
 end
