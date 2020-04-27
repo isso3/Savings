@@ -7,6 +7,8 @@ class TopController < ApplicationController
       else
         redirect_to "/#{current_user.id}/beginner"
       end
+    else
+      redirect_to new_user_registration_path
     end
   end
 end
