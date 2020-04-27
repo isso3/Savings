@@ -1,6 +1,10 @@
 class ResultController < ApplicationController
+  require "date"  
   def show
-    
+    saving = Saving.where(user_id: current_user).last
+    now = Date.today
+    past = saving.updated_at
+    @time = (now - Date.parse(past.to_s)).to_i
   end
 
   def new
@@ -10,8 +14,34 @@ class ResultController < ApplicationController
   def create
     @saving = Saving.new(saving_params)
     @saving.user_id = current_user.id
+    user = Saving.where(user_id: current_user)
+    @total_saving = user.last.total_savings
     @saving.save
-    redirect_to result_path
+    if @saving.month_income
+      @saving.total_savings = @total_saving + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+    else
+      @saving.total_savings = @total_saving + @saving.daily_income - @saving.daily_consumption
+    end
+    @saving.update(saving_params)
+    redirect_to result_path(current_user.id)
+  end
+
+  def edit
+    @saving = Saving.where(user_id: current_user).last
+  end
+
+  def update
+    @saving = Saving.order(id: :desc).find_by(user_id: current_user)
+    if @saving.user_id == current_user.id
+      @saving.update(saving_params)
+      if @saving.month_income
+        @saving.total_savings = @saving.month_income + @saving.daily_income - @saving.daily_consumption
+      else
+        @saving.total_savings = @saving.daily_income - @saving.daily_consumption
+      end
+      @saving.update(saving_params)
+    end
+    redirect_to result_path(current_user.id)
   end
 
   def create_beginner
