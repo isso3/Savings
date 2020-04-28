@@ -14,8 +14,8 @@ class ResultController < ApplicationController
   def create
     @saving = Saving.new(saving_params)
     @saving.user_id = current_user.id
-    user = Saving.where(user_id: current_user)
-    @total_saving = user.last.total_savings
+    user = Saving.order(id: :desc).find_by(user_id: current_user)
+    @total_saving = user.total_savings
     @saving.save
     if @saving.month_income
       @saving.total_savings = @total_saving + @saving.month_income + @saving.daily_income - @saving.daily_consumption
