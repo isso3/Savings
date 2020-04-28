@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  root to: 'top#top'
+  get "/", to: 'top#top'
   resources :result, only: [:show, :new, :create, :edit]
   patch "/result", to: "result#update"
   get "/:id/beginner", to: "result#beginner"
