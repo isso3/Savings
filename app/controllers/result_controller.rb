@@ -1,7 +1,7 @@
 class ResultController < ApplicationController
   require "date"  
   def show
-    saving = Saving.where(user_id: current_user).last
+    saving = Saving.order(id: :desc).find_by(user_id: current_user)
     now = Date.today
     past = saving.updated_at
     @time = (now - Date.parse(past.to_s)).to_i
