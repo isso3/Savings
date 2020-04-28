@@ -12,7 +12,7 @@ class ResultController < ApplicationController
   end
 
   def create
-    @saving = Saving.new(saving_params)
+    @saving = Saving.create(saving_params)
     @saving.user_id = current_user.id
     user = Saving.order(id: :desc).find_by(user_id: current_user)
     @total_saving = user.total_savings
@@ -49,7 +49,7 @@ class ResultController < ApplicationController
   end
 
   def create_beginner
-    @saving = Saving.new(saving_beginner_params)
+    @saving = Saving.create(saving_beginner_params)
     @saving.user_id = current_user.id
     @saving.save
     redirect_to result_path(current_user.id)
