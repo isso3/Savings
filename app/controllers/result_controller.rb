@@ -33,11 +33,15 @@ class ResultController < ApplicationController
   def update
     @saving = Saving.order(id: :desc).find_by(user_id: current_user)
     if @saving.user_id == current_user.id
+      now = Date.today
+      yesterday = now.yesterday
+      y_saving = Saving.where(user_id: current_user).find_by(updated_at: yesterday..now)
+      @saving.total_savings = y_saving.total_savings
       @saving.update(saving_params)
       if @saving.month_income
-        @saving.total_savings = @saving.month_income + @saving.daily_income - @saving.daily_consumption
+        @saving.total_savings = @saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
       else
-        @saving.total_savings = @saving.daily_income - @saving.daily_consumption
+        @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
       end
       @saving.update(saving_params)
     end
