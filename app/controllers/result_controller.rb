@@ -31,11 +31,29 @@ class ResultController < ApplicationController
   end
 
   def update
+    i = 1
+    ok = false
     @saving = Saving.order(id: :desc).find_by(user_id: current_user)
     if @saving.user_id == current_user.id
       now = Date.today
-      yesterday = now.yesterday
-      y_saving = Saving.where(user_id: current_user).find_by(updated_at: yesterday..now)
+      while ok == false
+        yesterday = now.ago(i.days)
+        y_saving = Saving.where(user_id: current_user).find_by(updated_at: yesterday..now)
+        if y_saving != nil
+          ok = false
+          break
+        else
+          if i > 1461
+            y_saving = @saving
+            y_saving.total_savings = @saving.total_savings
+            break
+          elsif y_saving == nil
+            i += 1
+          elsif y_saving != nil
+            ok = true
+          end
+        end
+      end
       @saving.total_savings = y_saving.total_savings
       @saving.update(saving_params)
       if @saving.month_income
