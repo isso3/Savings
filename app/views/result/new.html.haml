@@ -1,13 +1,17 @@
+.flash_alert
+  = flash[:alert]
 = form_for(@saving, url: result_index_path) do |f|
-  = f.label :今月の収入
+  = f.label :今月の収入（０の場合は空白）
   %br/
   = f.number_field :month_income
   %br/
-  = f.label :今日の収入
+  = f.label :今日の収入（数字を入力してください）
+  %span.star ★
   %br/
   = f.number_field :daily_income
   %br/
-  = f.label :今日の消費額
+  = f.label :今日の消費額（数字を入力してください）
+  %span.star ★
   %br/
   = f.number_field :daily_consumption
   %br/
