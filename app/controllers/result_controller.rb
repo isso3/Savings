@@ -1,7 +1,7 @@
 class ResultController < ApplicationController
   require "date"  
   def show
-    saving = Saving.order(id: :desc).find_by(user_id: current_user)
+    saving = Saving.order(id: :desc).find_by(user_id: current_user.id)
     now = Date.today
     past = saving.updated_at
     @time = (now - Date.parse(past.to_s)).to_i
@@ -12,18 +12,31 @@ class ResultController < ApplicationController
   end
 
   def create
-    @saving = Saving.create(saving_params)
+    @saving = Saving.new(saving_params)
     @saving.user_id = current_user.id
     user = Saving.order(id: :desc).find_by(user_id: current_user)
     @total_saving = user.total_savings
-    @saving.save
+    unless @saving.save
+      flash[:alert] = "登録に失敗しました"
+      render action: :new and return
+    end
+    if @saving.daily_income == nil
+        @saving.daily_income = 0
+    end
+    if @saving.daily_consumption == nil
+      @saving.daily_consumption = 0
+    end
     if @saving.month_income
       @saving.total_savings = @total_saving + @saving.month_income + @saving.daily_income - @saving.daily_consumption
     else
       @saving.total_savings = @total_saving + @saving.daily_income - @saving.daily_consumption
     end
-    @saving.update(saving_params)
-    redirect_to result_path(current_user.id)
+    if @saving.update(saving_params)
+      redirect_to result_path(current_user.id)
+    else
+      flash[:alert] = "登録に失敗しました"
+      redirect_to new_result_path
+    end
   end
 
   def edit
@@ -40,12 +53,11 @@ class ResultController < ApplicationController
         yesterday = now.ago(i.days)
         y_saving = Saving.where(user_id: current_user).find_by(updated_at: yesterday..now)
         if y_saving != nil
-          ok = false
+          ok = true
           break
         else
-          if i > 1461
+          if i > 1460
             y_saving = @saving
-            y_saving.total_savings = @saving.total_savings
             break
           elsif y_saving == nil
             i += 1
@@ -54,27 +66,68 @@ class ResultController < ApplicationController
           end
         end
       end
-      @saving.total_savings = y_saving.total_savings
-      @saving.update(saving_params)
-      if @saving.month_income
-        @saving.total_savings = @saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
-      else
-        @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
+      unless @saving.update(saving_params)
+        flash[:alert] = "更新に失敗しました"
+        render action: :edit and return
       end
-      @saving.update(saving_params)
+      if @saving.month_income == nil && @saving.daily_income == nil && @saving.daily_consumption == nil
+        @saving.month_income = 0
+        @saving.daily_income = 0
+        @saving.daily_consumption = 0
+      end
+      one = Saving.where(user_id: current_user.id).count
+      if one != 1
+        if @saving.month_income
+          @saving.total_savings = @saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+        else
+          @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
+        end
+      else
+        if @saving.month_income
+          if @saving.evacuation == nil
+            saving = @saving
+            saving.evacuation = saving.total_savings
+            saving.evacuation.freeze
+            @saving.total_savings = saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+          elsif @saving.evacuation != nil
+            evacuation = Saving.find_by(user_id: current_user)
+            @saving.total_savings = evacuation.evacuation + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+          end
+        else
+          if @saving.evacuation == nil
+            saving = @saving
+            saving.evacuation = saving.total_savings
+            saving.evacuation.freeze
+            @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
+          elsif @saving.evacuation != nil
+            evacuation = Saving.find_by(user_id: current_user)
+            @saving.total_savings = evacuation.evacuation + @saving.daily_income - @saving.daily_consumption
+          end
+        end
+      end
+      unless @saving.update(saving_params)
+        flash[:alert] = "更新に失敗しました"
+        render action: :edit and return
+      end
     end
     redirect_to result_path(current_user.id)
   end
 
   def create_beginner
-    @saving = Saving.create(saving_beginner_params)
+    @saving = Saving.new(saving_beginner_params)
     @saving.user_id = current_user.id
-    @saving.save
-    redirect_to result_path(current_user.id)
+    @saving.valid?
+    if @saving.save
+      flash[:notice] = "登録しました"
+      redirect_to result_path(current_user.id)
+    else
+      flash[:alert] = "登録に失敗しました"
+      redirect_to "/:id/beginner"
+    end
   end
 
   def beginner
-    @saving = Saving.new(total_savings: params[:total_savings])
+    @saving = Saving.create(total_savings: params[:total_savings])
   end
 
   private

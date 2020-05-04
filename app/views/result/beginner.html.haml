@@ -1,5 +1,10 @@
+.flash_notice
+  = flash[:notice]
+.flash_alert
+  = flash[:alert]
 = form_for(@saving, url: {controller: 'result', action: 'create_beginner'}) do |f|
-  = f.label :今までの貯金額
+  = f.label :今までの貯金額（数字を入力してください）
+  %span.star ★
   %br/
   = f.number_field :total_savings
   %br/
