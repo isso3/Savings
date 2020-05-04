@@ -15,6 +15,7 @@ class ResultController < ApplicationController
     @saving = Saving.new(saving_params)
     @saving.user_id = current_user.id
     user = Saving.order(id: :desc).find_by(user_id: current_user)
+    @saving.total_savings = user.total_savings
     @total_saving = user.total_savings
     unless @saving.save
       flash[:alert] = "登録に失敗しました"
