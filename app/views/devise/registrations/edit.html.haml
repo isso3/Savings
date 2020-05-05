@@ -1,8 +1,9 @@
 .registrations--margin
   %h2.registrations--form
-    プロフィール変更 #{resource_name.to_s.humanize}
+    プロフィール変更
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
-    = render "devise/shared/error_messages", resource: resource
+    .errors_message
+      = render "devise/shared/error_messages", resource: resource
     .field
       = f.label :メールアドレス
       %br/
@@ -11,8 +12,7 @@
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
     .field
-      = f.label :パスワード
-      %i (変更がなければ空白)
+      = f.label :変更したいをパスワード
       %br/
       = f.password_field :password, autocomplete: "new-password"
       - if @minimum_password_length
@@ -29,6 +29,8 @@
       %br/
       = f.password_field :current_password, autocomplete: "current-password"
     .actions
-      = f.submit "更新"
-      #{button_to "アカウントを削除", registration_path(resource_name), data: { confirm: "本当に？" }, class: "edit-margin", method: :delete}
+      .update
+        #{button_to "アカウントの情報を変更", registration_path(resource_name), class: "edit-margin", method: :update}
+      .delete
+        #{button_to "アカウントを削除", registration_path(resource_name), data: { confirm: "本当に？" }, class: "edit-margin", method: :delete}
   = link_to "戻る", :back, class: "edit-back-margin"
