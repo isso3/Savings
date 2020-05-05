@@ -1,11 +1,16 @@
-.flash_notice
-  = flash[:notice]
-.flash_alert
-  = flash[:alert]
-= form_for(@saving, url: {controller: 'result', action: 'create_beginner'}) do |f|
-  = f.label :今までの貯金額（数字を入力してください）
-  %span.star ★
-  %br/
-  = f.number_field :total_savings
-  %br/
-  = f.submit "送信"
+.beginner_bgi
+  - if flash[:alert]
+    %p.alert_message.alert.alert-primary
+      = flash[:alert]
+  - if flash[:notice]
+    %p.success_message.alert.alert-success
+      = flash[:notice]
+  .form-box
+    = form_for(@saving, url: {controller: 'result', action: 'create_beginner'}) do |f|
+      = f.label :今までの貯金額（数字を入力してください）
+      %span.star ★
+      %br/
+      .field
+        = f.number_field :total_savings
+      %br/
+      = f.submit "送信"

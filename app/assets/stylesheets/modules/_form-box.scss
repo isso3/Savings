@@ -1,0 +1,30 @@
+.form-box {
+  width: 340px;
+  margin: auto;
+  padding-top: 150px;
+  text-align: center;
+
+  .star {
+    color: red;
+  }
+
+  .field {
+    text-align: left;
+
+    #saving_total_savings {
+      width: 340px;
+    }
+
+    #saving_month_income {
+      width: 340px;
+    }
+
+    #saving_daily_income {
+      width: 340px;
+    }
+
+    #saving_daily_consumption {
+      width: 340px;
+    }
+  }
+}

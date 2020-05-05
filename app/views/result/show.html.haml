@@ -1,14 +1,15 @@
-.index-box
-  .index-box__title
-    %h2.title
-      あなたの貯金額の推移です
-  .index-box__graph
-    = column_chart Saving.where(user_id: current_user).last(30).pluck(:updated_at, :total_savings)
-  - if @time != 0
-    .index-box__form-trans
-      %a.btn.btn-primary{href: new_result_path, role: "button"} 
-        今日の収支額を入力する
-  - elsif @time == 0
-    .index-box__form-trans
-      %a.btn.btn-primary{href: edit_result_path(current_user.id), role: "button"} 
-        今日の収支額を更新する
+.show_bgi
+  .index-box
+    .index-box__title
+      %h2.title
+        = "#{current_user.username}さんの貯金額の推移です"
+    .index-box__graph
+      = column_chart Saving.where(user_id: current_user).last(30).pluck(:updated_at, :total_savings)
+    - if @time != 0
+      .index-box__form-trans
+        %a.btn.btn-primary{href: new_result_path, role: "button"} 
+          今日の収支額を入力する
+    - elsif @time == 0
+      .index-box__form-trans
+        %a.btn.btn-primary{href: edit_result_path(current_user.id), role: "button"} 
+          今日の収支額を更新する
