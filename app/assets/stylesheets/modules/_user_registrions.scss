@@ -7,7 +7,11 @@
     text-align: center;
   }
 
-  & .field, .actions, .login-bottom{
+  .errors_message {
+    text-align: center;
+  }
+
+  & .field, .login-bottom{
     margin-left: 160px;
     padding-bottom: 20px;
   }
