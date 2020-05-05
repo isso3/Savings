@@ -30,5 +30,5 @@
       = f.password_field :current_password, autocomplete: "current-password"
     .actions
       = f.submit "更新"
-      #{button_to "変更を中止", registration_path(resource_name), data: { confirm: "本当に？" }, class: "edit-margin", method: :delete}
+      #{button_to "アカウントを削除", registration_path(resource_name), data: { confirm: "本当に？" }, class: "edit-margin", method: :delete}
   = link_to "戻る", :back, class: "edit-back-margin"

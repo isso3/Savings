@@ -1,4 +1,5 @@
 class Saving < ApplicationRecord
+  belongs_to :user
   validates :total_savings,
             presence: true,
             on: :create
