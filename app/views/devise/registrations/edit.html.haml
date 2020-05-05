@@ -12,7 +12,7 @@
       %div
         Currently waiting confirmation for: #{resource.unconfirmed_email}
     .field
-      = f.label :変更したいをパスワード
+      = f.label :更新するパスワードを入力
       %br/
       = f.password_field :password, autocomplete: "new-password"
       - if @minimum_password_length
