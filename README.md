@@ -6,13 +6,14 @@
 
 # Production environment
 ホームページ: http://54.249.145.150/
-テストアカウント: メールアドレス：test@test.com
+テストアカウント: メールアドレス：test@saving.com
               パスワード：111111
 
 # Production background
 個人アプリの制作で詰まったのはまず何を作るかでしたので、あるサイトで参考にしたまず自分が欲しいもの、不便だと感じているものの解決策をアプリとして作るというのを見かけたので、お金の管理に甘い私は貯金アプリを作りました。更にその時の自分が分かったいない事また、実力より難易度の高い物を作った方が良いとも書いてあったのでその時理解し切れていなかったDB関連の流れや、bootstrapの導入やchartkickの導入など分からない物と新しくチャレンジしてみようと思いこのアプリを作りました。
 
 # DEMO
+https://github.com/isso3/Savings/issues/30#issue-621930273
 
 
 # Points devised
@@ -55,5 +56,5 @@ chartkickを使って直感的に自分の貯金額の推移がわかるよう�
 |daily_income|bigint|
 |user_id|integer|foreign_key: true|
 
-### association
+### Association
 - belongs_to :user
