@@ -79,16 +79,30 @@ class ResultController < ApplicationController
       one = Saving.where(user_id: current_user.id).count
       if one != 1
         if @saving.month_income
-          @saving.total_savings = @saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+          if @saving.evacuation == nil
+            saving = @saving
+            saving.evacuation = saving.total_savings
+            @saving.total_savings = y_saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+          elsif @saving.evacuation != nil
+            evacuation = Saving.order(id: :desc).where(user_id: current_user).limit(2).offset(1).first
+            @saving.total_savings = evacuation.evacuation + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+          end
         else
-          @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
+          if @saving.evacuation == nil
+            saving = @saving
+            saving.evacuation = saving.total_savings
+            saving.evacuation.freeze
+            @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
+          elsif @saving.evacuation != nil
+            evacuation = Saving.order(id: :desc).where(user_id: current_user).limit(2).offset(1).first
+            @saving.total_savings = evacuation.evacuation + @saving.daily_income - @saving.daily_consumption
+          end
         end
       else
         if @saving.month_income
           if @saving.evacuation == nil
             saving = @saving
             saving.evacuation = saving.total_savings
-            saving.evacuation.freeze
             @saving.total_savings = saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
             evacuation = Saving.find_by(user_id: current_user)
