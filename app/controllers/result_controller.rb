@@ -56,10 +56,10 @@ class ResultController < ApplicationController
         y_saving = Saving.where(user_id: current_user).find_by(updated_at: yesterday..now)
         if y_saving != nil
           ok = true
-          break
         else
           if i > 1460
             y_saving = @saving
+            break
           elsif y_saving == nil
             i += 1
           elsif y_saving != nil
