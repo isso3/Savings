@@ -1,4 +1,4 @@
-# Saving
+# SAVING
 このアプリは貯金アプリです。記録していきお金を節約していきましょう。
 
 # Description
