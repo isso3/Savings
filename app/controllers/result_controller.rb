@@ -76,12 +76,12 @@ class ResultController < ApplicationController
       if one != 1
         if @saving.month_income
           if @saving.evacuation == nil
-            logger.info(1)
+            logger.info("1")
             saving = @saving
             saving.evacuation = saving.total_savings
             @saving.total_savings = y_saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
-            logger.info(2)
+            logger.info("2")
             evacuation = Saving.order(id: :desc).where(user_id: current_user).limit(2).offset(1).first
             @saving.total_savings = evacuation.evacuation + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           end
@@ -99,12 +99,12 @@ class ResultController < ApplicationController
       else
         if @saving.month_income
           if @saving.evacuation == nil
-            logger.info(3)
+            logger.info("3")
             saving = @saving
             saving.evacuation = saving.total_savings
             @saving.total_savings = saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
-            logger.info(4)
+            logger.info("4")
             evacuation = Saving.find_by(user_id: current_user)
             @saving.total_savings = evacuation.evacuation + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           end
