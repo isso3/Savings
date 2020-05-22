@@ -93,7 +93,7 @@ class ResultController < ApplicationController
             @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
             evacuation = Saving.order(id: :desc).where(user_id: current_user).limit(2).offset(1).first
-            @saving.total_savings = evacuation.evacuation + @saving.daily_income - @saving.daily_consumption
+            @saving.total_savings = evacuation.total_savings + @saving.daily_income - @saving.daily_consumption
           end
         end
       else
@@ -106,7 +106,7 @@ class ResultController < ApplicationController
             @saving.total_savings = @saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
             evacuation = Saving.find_by(user_id: current_user)
-            @saving.total_savings = evacuation.evacuation + @saving.month_income + @saving.daily_income - @saving.daily_consumption
+            @saving.total_savings = evacuation.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           end
         else
           if @saving.evacuation == nil
@@ -116,7 +116,7 @@ class ResultController < ApplicationController
             @saving.total_savings = @saving.total_savings + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
             evacuation = Saving.find_by(user_id: current_user)
-            @saving.total_savings = evacuation.evacuation + @saving.daily_income - @saving.daily_consumption
+            @saving.total_savings = evacuation.total_savings + @saving.daily_income - @saving.daily_consumption
           end
         end
       end
