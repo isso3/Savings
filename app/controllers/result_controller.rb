@@ -45,6 +45,7 @@ class ResultController < ApplicationController
   end
 
   def update
+    logger.debug(0)
     i = 1
     ok = false
     @saving = Saving.order(id: :desc).find_by(user_id: current_user)
