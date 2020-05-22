@@ -45,7 +45,6 @@ class ResultController < ApplicationController
   end
 
   def update
-    logger.info(0)
     i = 1
     ok = false
     @saving = Saving.order(id: :desc).find_by(user_id: current_user)
@@ -76,12 +75,12 @@ class ResultController < ApplicationController
       if one != 1
         if @saving.month_income
           if @saving.evacuation == nil
-            logger.info("1")
+            logger.debug(1)
             saving = @saving
             saving.evacuation = saving.total_savings
             @saving.total_savings = y_saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
-            logger.info("2")
+            logger.debug(2)
             evacuation = Saving.order(id: :desc).where(user_id: current_user).limit(2).offset(1).first
             @saving.total_savings = evacuation.evacuation + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           end
@@ -99,12 +98,12 @@ class ResultController < ApplicationController
       else
         if @saving.month_income
           if @saving.evacuation == nil
-            logger.info("3")
+            logger.debug(3)
             saving = @saving
             saving.evacuation = saving.total_savings
             @saving.total_savings = saving.total_savings + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           elsif @saving.evacuation != nil
-            logger.info("4")
+            logger.debug(4)
             evacuation = Saving.find_by(user_id: current_user)
             @saving.total_savings = evacuation.evacuation + @saving.month_income + @saving.daily_income - @saving.daily_consumption
           end
@@ -147,7 +146,7 @@ class ResultController < ApplicationController
 
   private
   def saving_params
-    params.require(:saving).permit(:total_savings, :month_income, :daily_income, :daily_consumption)
+    params.require(:saving).permit(:total_savings, :month_income, :daily_income, :daily_consumption, :evacuation)
   end
 
   def saving_beginner_params
