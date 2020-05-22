@@ -67,10 +67,6 @@ class ResultController < ApplicationController
           end
         end
       end
-      unless @saving.update(saving_params)
-        flash[:alert] = "更新に失敗しました"
-        render action: :edit and return
-      end
       if @saving.month_income == nil && @saving.daily_income == nil && @saving.daily_consumption == nil
         @saving.month_income = 0
         @saving.daily_income = 0
